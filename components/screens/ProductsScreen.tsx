@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Button, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import { Storage } from "aws-amplify";
 import { colors } from "../../config/colors";
+import ProductsScreenView from "../views/ProductsScreenView";
 
 const ProductsScreen = ({navigation,route} :any) => {
 
@@ -27,24 +28,7 @@ const ProductsScreen = ({navigation,route} :any) => {
   return(
     <SafeAreaView style = {styles.container}>
 
-      <View style = {styles.productView}>
-        <View style={styles.productImageView}>
-        {getImage
-          ?
-          <Image source={{ uri: getImage }} style={{width:100,height:100,borderRadius:20,borderWidth:1}} />
-          :
-          <ActivityIndicator size='large' style={{alignSelf:"center"}}/>
-        }
-        </View>
-        <View style={styles.productTextView}>
-          <Text style={{fontSize:20}}>
-            Name
-          </Text>
-          <Text style = {{fontSize:16}}>
-            Price
-          </Text>
-        </View>
-      </View>
+      <ProductsScreenView name="Shoe1" price="$100" image={getImage}/>
 
     </SafeAreaView>
   )
