@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-goldenshoe-dev-154657-authRole",
+      "UnauthRoleArn": "arn:aws:iam::930411700518:role/amplify-goldenshoe-dev-154657-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::930411700518:role/amplify-goldenshoe-dev-154657-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-goldenshoe-dev-154657-deployment",
+      "UnauthRoleName": "amplify-goldenshoe-dev-154657-unauthRole",
+      "StackName": "amplify-goldenshoe-dev-154657",
+      "StackId": "arn:aws:cloudformation:eu-west-2:930411700518:stack/amplify-goldenshoe-dev-154657/07cf7ac0-8764-11ec-ba7e-021064692e18",
+      "AmplifyAppId": "d154bjbj3tfywp"
+    },
+    "categories": {
+      "auth": {
+        "goldenshoefed5a8c2": {},
+        "true": {}
+      }
+    }
+  }
+}

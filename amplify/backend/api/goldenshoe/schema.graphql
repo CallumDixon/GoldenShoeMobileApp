@@ -1,0 +1,13 @@
+type Category @model
+@key(
+  name: "byOrder"
+  fields: ["parent","order"]
+  queryField: "categoryByOrder"
+)
+{
+  id: ID!
+  name: String!
+  parent: String!
+  order: Int
+  leaf_node: Boolean
+}
