@@ -1,8 +1,17 @@
-import { ActivityIndicator, Image, ImageSourcePropType, ImageURISource, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ImageSourcePropType,
+  ImageURISource,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { colors } from "../../config/colors";
 
-interface IProductsScreenView{
+export interface IProductsScreenView{
   image: string | undefined
   name: string
   price: string
@@ -14,19 +23,21 @@ const ProductsScreenView = ({image ,name ,price } : IProductsScreenView) => {
   const imageURI: ImageSourcePropType = {uri: image}
 
   return(
-    <View style = {styles.productView}>
-      <View style={styles.productImageView}>
-        <Image source={imageURI} style={{width:100,height:100,borderRadius:20,borderWidth:1}} />
+    <Pressable>
+      <View style = {styles.productView}>
+        <View style={styles.productImageView}>
+          <Image source={imageURI} style={{width:100,height:100,borderRadius:20,borderWidth:1}} />
+        </View>
+        <View style={styles.productTextView}>
+          <Text style={{fontSize:20}}>
+            {name}
+          </Text>
+          <Text style = {{fontSize:16}}>
+            {price}
+          </Text>
+        </View>
       </View>
-      <View style={styles.productTextView}>
-        <Text style={{fontSize:20}}>
-          {name}
-        </Text>
-        <Text style = {{fontSize:16}}>
-          {price}
-        </Text>
-      </View>
-    </View>
+    </Pressable>
   )
 }
 

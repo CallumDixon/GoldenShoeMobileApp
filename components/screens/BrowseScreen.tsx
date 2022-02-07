@@ -30,11 +30,7 @@ const BrowseScreen = ({navigation,route} :any) => {
   },[])
 
   const fetchCategories = async () => {
-    let filter = {
-      parent: {
-        eq: route.params.title
-      }
-    }
+
     const categories = await API.graphql(graphqlOperation(categoryByOrder,{
       sortDirection: ModelSortDirection.ASC,
       parent: route.params.title

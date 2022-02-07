@@ -35,6 +35,43 @@ export const listCategorys = /* GraphQL */ `
     }
   }
 `;
+export const getProduct = /* GraphQL */ `
+  query GetProduct($id: ID!) {
+    getProduct(id: $id) {
+      id
+      name
+      parent
+      price
+      description
+      image
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listProducts = /* GraphQL */ `
+  query ListProducts(
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        parent
+        price
+        description
+        image
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const categoryByOrder = /* GraphQL */ `
   query CategoryByOrder(
     $parent: String
@@ -58,6 +95,38 @@ export const categoryByOrder = /* GraphQL */ `
         parent
         order
         leaf_node
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const productByOrder = /* GraphQL */ `
+  query ProductByOrder(
+    $parent: String
+    $order: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    productByOrder(
+      parent: $parent
+      order: $order
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        parent
+        price
+        description
+        image
+        order
         createdAt
         updatedAt
       }

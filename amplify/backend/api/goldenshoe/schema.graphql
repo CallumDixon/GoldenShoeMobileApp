@@ -11,3 +11,19 @@ type Category @model
   order: Int
   leaf_node: Boolean
 }
+
+type Product @model
+@key(
+  name: "byOrder"
+  fields: ["parent","order"]
+  queryField: "productByOrder"
+)
+{
+  id: ID!
+  name: String!
+  parent: String!
+  price: String!
+  description: String!,
+  image: String!
+  order: Int
+}

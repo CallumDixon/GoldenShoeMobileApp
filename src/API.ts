@@ -102,6 +102,55 @@ export type DeleteCategoryInput = {
   id: string,
 };
 
+export type CreateProductInput = {
+  id?: string | null,
+  name: string,
+  parent: string,
+  price: string,
+  description: string,
+  image: string,
+  order?: number | null,
+};
+
+export type ModelProductConditionInput = {
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  price?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  and?: Array< ModelProductConditionInput | null > | null,
+  or?: Array< ModelProductConditionInput | null > | null,
+  not?: ModelProductConditionInput | null,
+};
+
+export type Product = {
+  __typename: "Product",
+  id: string,
+  name: string,
+  parent: string,
+  price: string,
+  description: string,
+  image: string,
+  order?: number | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateProductInput = {
+  id: string,
+  name?: string | null,
+  parent?: string | null,
+  price?: string | null,
+  description?: string | null,
+  image?: string | null,
+  order?: number | null,
+};
+
+export type DeleteProductInput = {
+  id: string,
+};
+
 export type ModelCategoryFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -132,6 +181,25 @@ export type ModelIDInput = {
 export type ModelCategoryConnection = {
   __typename: "ModelCategoryConnection",
   items:  Array<Category >,
+  nextToken?: string | null,
+};
+
+export type ModelProductFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  price?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  and?: Array< ModelProductFilterInput | null > | null,
+  or?: Array< ModelProductFilterInput | null > | null,
+  not?: ModelProductFilterInput | null,
+};
+
+export type ModelProductConnection = {
+  __typename: "ModelProductConnection",
+  items:  Array<Product >,
   nextToken?: string | null,
 };
 
@@ -204,6 +272,66 @@ export type DeleteCategoryMutation = {
   } | null,
 };
 
+export type CreateProductMutationVariables = {
+  input: CreateProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type CreateProductMutation = {
+  createProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateProductMutationVariables = {
+  input: UpdateProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type UpdateProductMutation = {
+  updateProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteProductMutationVariables = {
+  input: DeleteProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type DeleteProductMutation = {
+  deleteProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetCategoryQueryVariables = {
   id: string,
 };
@@ -244,6 +372,50 @@ export type ListCategorysQuery = {
   } | null,
 };
 
+export type GetProductQueryVariables = {
+  id: string,
+};
+
+export type GetProductQuery = {
+  getProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListProductsQueryVariables = {
+  filter?: ModelProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProductsQuery = {
+  listProducts?:  {
+    __typename: "ModelProductConnection",
+    items:  Array< {
+      __typename: "Product",
+      id: string,
+      name: string,
+      parent: string,
+      price: string,
+      description: string,
+      image: string,
+      order?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type CategoryByOrderQueryVariables = {
   parent?: string | null,
   order?: ModelIntKeyConditionInput | null,
@@ -263,6 +435,34 @@ export type CategoryByOrderQuery = {
       parent: string,
       order?: number | null,
       leaf_node?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ProductByOrderQueryVariables = {
+  parent?: string | null,
+  order?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ProductByOrderQuery = {
+  productByOrder?:  {
+    __typename: "ModelProductConnection",
+    items:  Array< {
+      __typename: "Product",
+      id: string,
+      name: string,
+      parent: string,
+      price: string,
+      description: string,
+      image: string,
+      order?: number | null,
       createdAt: string,
       updatedAt: string,
     } >,
@@ -304,6 +504,51 @@ export type OnDeleteCategorySubscription = {
     parent: string,
     order?: number | null,
     leaf_node?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateProductSubscription = {
+  onCreateProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateProductSubscription = {
+  onUpdateProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteProductSubscription = {
+  onDeleteProduct?:  {
+    __typename: "Product",
+    id: string,
+    name: string,
+    parent: string,
+    price: string,
+    description: string,
+    image: string,
+    order?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
