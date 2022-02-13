@@ -3,6 +3,8 @@ import { ActivityIndicator, Button, Image, SafeAreaView, StyleSheet, Text, View 
 import { ModelSortDirection } from "../../src/API";
 import { API, graphqlOperation } from "aws-amplify";
 import { listProducts, productByOrder } from "../../src/graphql/queries";
+import { fetchProduct } from "../../functions/api";
+import ImageView from "../ImageView";
 
 interface IProduct {
   id: string
@@ -21,30 +23,19 @@ const ProductScreen = ({navigation,route} : any) => {
 
   useEffect(() => {
     fetchProduct(route.params.title)
+      .then((data:IProduct) => {
+        setProduct(data)
+        setLoading(false)
+      })
   },[])
 
-  const fetchProduct = async (name: string) => {
-
-    let filter = {
-      name: {
-        eq: name
-      }
-    };
-
-    let products
-    products = await API.graphql({ query: listProducts, variables: { filter: filter}})
-    // @ts-ignore
-    setProduct(products.data.listProducts.items[0])
-    setLoading(false)
-    return products
-  }
 
   return(
     <SafeAreaView>
       {loading ? <ActivityIndicator size='large' style={{alignSelf:"center"}}/>
         :
         <View>
-          <Image source={{ uri: getProduct?.image }} style={styles.img}/>
+          <ImageView name={getProduct?.image}/>
           <Text style={styles.desc}>{getProduct?.description}</Text>
           <Text style={styles.price}>Price: {getProduct?.price}</Text>
           <Button title="Add to Basket" onPress={() => {console.log("Pressed");}}/>

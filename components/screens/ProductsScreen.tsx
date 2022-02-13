@@ -16,9 +16,10 @@ import { colors } from "../../config/colors";
 import { categoryByOrder, listProducts, productByOrder } from "../../src/graphql/queries";
 import { ModelSortDirection } from "../../src/API";
 import { IBrowseItem } from "./BrowseScreen";
+import { fetchProductsWithFilter, fetchImage } from "../../functions/api";
 
 interface IProductsItem{
-  image: string | undefined
+  image: string
   name: string
   price: string
 }
@@ -34,44 +35,14 @@ const ProductsScreen = ({navigation,route} :any) => {
 
   // The Following are used to fetch the Categories
   useEffect(() => {
-    fetchProducts(route.params.title)
-      .then((data) => {})
+    fetchProductsWithFilter(route.params.title)
+      .then((data) => {
+        setList(data)
+        setLoading(false)
+      })
       .catch((e) => {})
   },[])
 
-  const fetchProducts = async (parent: string) => {
-
-    let variables = {
-      sortDirection: ModelSortDirection.ASC,
-      parent: parent
-    }
-
-    let products
-    let data
-    if(parent == "All"){
-      products = await API.graphql(graphqlOperation(listProducts))
-      // @ts-ignore
-      data = products.data.listProducts
-    }
-    else {
-      products = await API.graphql(graphqlOperation(productByOrder, variables))
-      // @ts-ignore
-      data = products.data.productByOrder
-    }
-    // @ts-ignore
-    setList(data.items.map((item: {
-      name: string
-      price: string
-      image: string
-      }) =>
-      ({
-        name: item.name,
-        price: item.price,
-        image: item.image,
-      })))
-    setLoading(false)
-    return products
-  }
 
   const clickedItem = (name : string) => {
       navigation.push('Product', { title: name })
@@ -79,12 +50,24 @@ const ProductsScreen = ({navigation,route} :any) => {
 
   const ProductsScreenView = ({image,name,price} : IProductsItem) => {
 
-    const imageURI: ImageSourcePropType = {uri: image}
+    const [file,setFile] = useState<string>()
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+
+      fetchImage(image)
+        // @ts-ignore
+        .then((img:string) => {
+          setFile(img)
+          setLoading(false)
+        })
+    },[])
+
     return(
     <Pressable onPress={() => {clickedItem(name)}}>
       <View style={styles.productView}>
         <View style={styles.productImageView}>
-          <Image source={imageURI} style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} />
+          <Image source={{ uri: file}} style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} />
         </View>
         <View style={styles.productTextView}>
           <Text style={{ fontSize: 20 }}>
