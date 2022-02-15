@@ -50,6 +50,7 @@ export const onCreateProduct = /* GraphQL */ `
       price
       description
       image
+      stock
       order
       createdAt
       updatedAt
@@ -65,6 +66,7 @@ export const onUpdateProduct = /* GraphQL */ `
       price
       description
       image
+      stock
       order
       createdAt
       updatedAt
@@ -80,6 +82,49 @@ export const onDeleteProduct = /* GraphQL */ `
       price
       description
       image
+      stock
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCSQuery = /* GraphQL */ `
+  subscription OnCreateCSQuery {
+    onCreateCSQuery {
+      id
+      name
+      parent
+      description
+      leaf_node
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCSQuery = /* GraphQL */ `
+  subscription OnUpdateCSQuery {
+    onUpdateCSQuery {
+      id
+      name
+      parent
+      description
+      leaf_node
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCSQuery = /* GraphQL */ `
+  subscription OnDeleteCSQuery {
+    onDeleteCSQuery {
+      id
+      name
+      parent
+      description
+      leaf_node
       order
       createdAt
       updatedAt

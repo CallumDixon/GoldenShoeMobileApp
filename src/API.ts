@@ -109,7 +109,8 @@ export type CreateProductInput = {
   price: string,
   description: string,
   image: string,
-  order?: number | null,
+  stock: number,
+  order: number,
 };
 
 export type ModelProductConditionInput = {
@@ -118,6 +119,7 @@ export type ModelProductConditionInput = {
   price?: ModelStringInput | null,
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  stock?: ModelIntInput | null,
   order?: ModelIntInput | null,
   and?: Array< ModelProductConditionInput | null > | null,
   or?: Array< ModelProductConditionInput | null > | null,
@@ -132,7 +134,8 @@ export type Product = {
   price: string,
   description: string,
   image: string,
-  order?: number | null,
+  stock: number,
+  order: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -144,10 +147,56 @@ export type UpdateProductInput = {
   price?: string | null,
   description?: string | null,
   image?: string | null,
+  stock?: number | null,
   order?: number | null,
 };
 
 export type DeleteProductInput = {
+  id: string,
+};
+
+export type CreateCSQueryInput = {
+  id?: string | null,
+  name: string,
+  parent: string,
+  description?: string | null,
+  leaf_node: boolean,
+  order?: number | null,
+};
+
+export type ModelCSQueryConditionInput = {
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  leaf_node?: ModelBooleanInput | null,
+  order?: ModelIntInput | null,
+  and?: Array< ModelCSQueryConditionInput | null > | null,
+  or?: Array< ModelCSQueryConditionInput | null > | null,
+  not?: ModelCSQueryConditionInput | null,
+};
+
+export type CSQuery = {
+  __typename: "CSQuery",
+  id: string,
+  name: string,
+  parent: string,
+  description?: string | null,
+  leaf_node: boolean,
+  order?: number | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateCSQueryInput = {
+  id: string,
+  name?: string | null,
+  parent?: string | null,
+  description?: string | null,
+  leaf_node?: boolean | null,
+  order?: number | null,
+};
+
+export type DeleteCSQueryInput = {
   id: string,
 };
 
@@ -191,6 +240,7 @@ export type ModelProductFilterInput = {
   price?: ModelStringInput | null,
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  stock?: ModelIntInput | null,
   order?: ModelIntInput | null,
   and?: Array< ModelProductFilterInput | null > | null,
   or?: Array< ModelProductFilterInput | null > | null,
@@ -200,6 +250,24 @@ export type ModelProductFilterInput = {
 export type ModelProductConnection = {
   __typename: "ModelProductConnection",
   items:  Array<Product >,
+  nextToken?: string | null,
+};
+
+export type ModelCSQueryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  leaf_node?: ModelBooleanInput | null,
+  order?: ModelIntInput | null,
+  and?: Array< ModelCSQueryFilterInput | null > | null,
+  or?: Array< ModelCSQueryFilterInput | null > | null,
+  not?: ModelCSQueryFilterInput | null,
+};
+
+export type ModelCSQueryConnection = {
+  __typename: "ModelCSQueryConnection",
+  items:  Array<CSQuery >,
   nextToken?: string | null,
 };
 
@@ -286,7 +354,8 @@ export type CreateProductMutation = {
     price: string,
     description: string,
     image: string,
-    order?: number | null,
+    stock: number,
+    order: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -306,7 +375,8 @@ export type UpdateProductMutation = {
     price: string,
     description: string,
     image: string,
-    order?: number | null,
+    stock: number,
+    order: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -326,6 +396,64 @@ export type DeleteProductMutation = {
     price: string,
     description: string,
     image: string,
+    stock: number,
+    order: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateCSQueryMutationVariables = {
+  input: CreateCSQueryInput,
+  condition?: ModelCSQueryConditionInput | null,
+};
+
+export type CreateCSQueryMutation = {
+  createCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCSQueryMutationVariables = {
+  input: UpdateCSQueryInput,
+  condition?: ModelCSQueryConditionInput | null,
+};
+
+export type UpdateCSQueryMutation = {
+  updateCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCSQueryMutationVariables = {
+  input: DeleteCSQueryInput,
+  condition?: ModelCSQueryConditionInput | null,
+};
+
+export type DeleteCSQueryMutation = {
+  deleteCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
     order?: number | null,
     createdAt: string,
     updatedAt: string,
@@ -385,7 +513,8 @@ export type GetProductQuery = {
     price: string,
     description: string,
     image: string,
-    order?: number | null,
+    stock: number,
+    order: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -408,6 +537,49 @@ export type ListProductsQuery = {
       price: string,
       description: string,
       image: string,
+      stock: number,
+      order: number,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCSQueryQueryVariables = {
+  id: string,
+};
+
+export type GetCSQueryQuery = {
+  getCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCSQuerysQueryVariables = {
+  filter?: ModelCSQueryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCSQuerysQuery = {
+  listCSQuerys?:  {
+    __typename: "ModelCSQueryConnection",
+    items:  Array< {
+      __typename: "CSQuery",
+      id: string,
+      name: string,
+      parent: string,
+      description?: string | null,
+      leaf_node: boolean,
       order?: number | null,
       createdAt: string,
       updatedAt: string,
@@ -462,6 +634,34 @@ export type ProductByOrderQuery = {
       price: string,
       description: string,
       image: string,
+      stock: number,
+      order: number,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CSQueryByOrderQueryVariables = {
+  parent?: string | null,
+  order?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCSQueryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CSQueryByOrderQuery = {
+  CSQueryByOrder?:  {
+    __typename: "ModelCSQueryConnection",
+    items:  Array< {
+      __typename: "CSQuery",
+      id: string,
+      name: string,
+      parent: string,
+      description?: string | null,
+      leaf_node: boolean,
       order?: number | null,
       createdAt: string,
       updatedAt: string,
@@ -518,7 +718,8 @@ export type OnCreateProductSubscription = {
     price: string,
     description: string,
     image: string,
-    order?: number | null,
+    stock: number,
+    order: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -533,7 +734,8 @@ export type OnUpdateProductSubscription = {
     price: string,
     description: string,
     image: string,
-    order?: number | null,
+    stock: number,
+    order: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -548,6 +750,49 @@ export type OnDeleteProductSubscription = {
     price: string,
     description: string,
     image: string,
+    stock: number,
+    order: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCSQuerySubscription = {
+  onCreateCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCSQuerySubscription = {
+  onUpdateCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
+    order?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCSQuerySubscription = {
+  onDeleteCSQuery?:  {
+    __typename: "CSQuery",
+    id: string,
+    name: string,
+    parent: string,
+    description?: string | null,
+    leaf_node: boolean,
     order?: number | null,
     createdAt: string,
     updatedAt: string,

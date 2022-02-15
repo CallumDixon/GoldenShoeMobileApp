@@ -27,6 +27,10 @@ import BrowseScreen from "./components/screens/BrowseScreen";
 import { colors } from "./config/colors";
 // @ts-ignore
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { API, graphqlOperation } from "aws-amplify";
+import * as subscriptions from "./src/graphql/subscriptions";
+
+
 
 const Tab = createBottomTabNavigator();
 

@@ -62,6 +62,7 @@ export const createProduct = /* GraphQL */ `
       price
       description
       image
+      stock
       order
       createdAt
       updatedAt
@@ -80,6 +81,7 @@ export const updateProduct = /* GraphQL */ `
       price
       description
       image
+      stock
       order
       createdAt
       updatedAt
@@ -98,6 +100,58 @@ export const deleteProduct = /* GraphQL */ `
       price
       description
       image
+      stock
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCSQuery = /* GraphQL */ `
+  mutation CreateCSQuery(
+    $input: CreateCSQueryInput!
+    $condition: ModelCSQueryConditionInput
+  ) {
+    createCSQuery(input: $input, condition: $condition) {
+      id
+      name
+      parent
+      description
+      leaf_node
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCSQuery = /* GraphQL */ `
+  mutation UpdateCSQuery(
+    $input: UpdateCSQueryInput!
+    $condition: ModelCSQueryConditionInput
+  ) {
+    updateCSQuery(input: $input, condition: $condition) {
+      id
+      name
+      parent
+      description
+      leaf_node
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCSQuery = /* GraphQL */ `
+  mutation DeleteCSQuery(
+    $input: DeleteCSQueryInput!
+    $condition: ModelCSQueryConditionInput
+  ) {
+    deleteCSQuery(input: $input, condition: $condition) {
+      id
+      name
+      parent
+      description
+      leaf_node
       order
       createdAt
       updatedAt

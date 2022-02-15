@@ -1,21 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   FlatList,
-  Image, ImageSourcePropType, Pressable,
+  Image, Pressable,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import { API, graphqlOperation, Storage } from "aws-amplify";
 import { colors } from "../../config/colors";
-import { categoryByOrder, listProducts, productByOrder } from "../../src/graphql/queries";
-import { ModelSortDirection } from "../../src/API";
-import { IBrowseItem } from "./BrowseScreen";
 import { fetchProductsWithFilter, fetchImage } from "../../functions/api";
 
 interface IProductsItem{
