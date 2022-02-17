@@ -14,7 +14,6 @@ export const MyAccountScreen = () => {
 let styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: "center",
   },
 })
 

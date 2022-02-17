@@ -28,10 +28,6 @@ export const HomeScreen = () => {
   return(
     <SafeAreaView>
       <Text>Home</Text>
-
-      <Button title={"Base Categories"} onPress={() => {
-        post(categories,"Categories")
-      }}>Base Categories</Button>
     </SafeAreaView>
   )
 }
